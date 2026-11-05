@@ -9,9 +9,9 @@ const jwt = require('jsonwebtoken')
 const prisma = require('../prisma/client')
 
 const login = async(req, res) => {
-    const error = validationResult(req)
+    const errors = validationResult(req)
 
-    if(!error.isEmpty()) {
+    if(!errors.isEmpty()) {
         return res.status(422).json({
             success: false,
             message: 'Validation error',
