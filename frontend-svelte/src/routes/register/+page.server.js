@@ -8,7 +8,7 @@ export const actions = {
             const formData = await request.formData();
             const name = formData.get('name');
             const email = formData.get('email');
-            const password = formData.get('password')
+            const password = formData.get('password');
 
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/register`, {
                 method: 'POST',
@@ -38,6 +38,7 @@ export const actions = {
 
             return { success: true }
         } catch (error) {
+            console.log('Error', error)
             return fail(500, {
                 success: false,
                 message: error?.message || "Gagal menghubungi server",
