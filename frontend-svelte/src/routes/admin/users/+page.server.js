@@ -24,3 +24,32 @@ export async function load({ fetch, cookies }) {
     // return props `users`
     return { users };
 }
+
+/** @type {import('./$types').Actions} */
+export const actions = {
+    delete: async ({ request, cookies }) => {
+
+        const formData = await request.formData();
+        const id = formData.get('id');
+
+        // Ambil token, pastikan token tersedia dari cookies
+        const token = cookies.get('token');
+        
+        try {
+            // Lakukan permintaan untuk menghapus data
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/users/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            // Jika berhasil, return success
+            return { success: true };
+        } catch (error) {
+            console.error('Error deleting user:', error);
+            return { success: false, error: 'Failed to delete user' };
+        }
+    }
+};
