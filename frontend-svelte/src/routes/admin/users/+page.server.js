@@ -5,7 +5,7 @@ export async function load({ fetch, cookies }) {
     const token = cookies.get('token');
 
     // Mengirim permintaan dengan token (sesuai route backend: /api/admin/user)
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/user`, {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/users`, {
         headers: {
             'Authorization': `${token}`,
             'Content-type': 'application/json'

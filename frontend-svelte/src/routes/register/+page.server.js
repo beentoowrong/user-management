@@ -22,8 +22,8 @@ export const actions = {
                 })
             })
 
-            // Ditampung response jsonnya kedalam variable result 
-            const result = await response.json();
+            const isJson = response.headers.get('content-type')?.includes('application/json');
+            const result = isJson ? await response.json() : {};
 
             // Jika gagal maka akan memanggil fail dan memberikan beberapa object error validasi
             // yang di dapat dari backend

@@ -2,7 +2,7 @@ import { fail } from '@sveltejs/kit'
 
 /** @type { import('./$types').Actions } */
 export const actions = {
-    login: async ({ request, cookies }) => {
+    login: async ({ request, cookies, fetch }) => {
         try {
             // Ambil data dari form
             const formData = await request.formData();
@@ -20,7 +20,8 @@ export const actions = {
                 })
             })
 
-            const result = await response.json()
+            const isJson = response.headers.get('content-type')?.includes('application/json');
+            const result = isJson ? await response.json() : {};
 
             // Jika gagal maka akan memanggil fail dan memberikan beberapa object error validasi
             // yang di dapat dari backend
